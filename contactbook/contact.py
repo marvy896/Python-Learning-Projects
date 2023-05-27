@@ -1,23 +1,23 @@
+print("Welcome to Marv's Contact Book")
 contactNames = []
 phoneNumbers = []
 numOfContacts = 2
-
-for i in range(numOfContacts) :
-    contactName = input("Name: ")
-    phoneNumber = input("Phone Number: ")
-    contactNames.append(contactName)
-    phoneNumbers.append(phoneNumber)
-
-print("\nName\t\t\tPhone Number\n")
-
-for i in range(numOfContacts) :
-    print("{}\t\t\t{}".format(contactNames[i], phoneNumbers[i]))
-
-searchContact = input("\nEnter Search Term: ")
-print("search Result")
-if searchContact in contactNames :
-    index = contactNames.index(searchContact)
-    phoneNumber = phoneNumbers[index]
-    print("Name {}, Phone Number: {}".format(searchContact, phoneNumber))
+options = input('Add (a) Search (s) Quit (q)')
+if options == 'a':
+    for i in range(numOfContacts):
+        with open("contactlist", "a") as f:
+            contactName = input("Name: ")
+            phoneNumber = input("Phone Number: ")
+            f.writelines((contactName, " : ", phoneNumber, "\n"))
+            contactNames.append(contactName)
+            phoneNumbers.append(phoneNumber)
+            print("\nName\t\t\tPhone Number\n")
+            print("{}\t\t\t{}".format(contactNames, phoneNumbers))
+elif options == 's':
+    with open("contactlist", "r") as f:
+        searchContact = input("\nEnter Search Term: ")
+        for i in f:
+            if searchContact in i:
+                print(i)
 else:
-    print("Name not found")
+    print("Goodbye")
